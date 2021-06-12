@@ -52,7 +52,7 @@ function main() {
     });
 }
 
-// Deta cron specific code
+// deta cron specific code
 if (process.env.DETA_RUNTIME) {
   app.lib.cron(() => {
     main();
