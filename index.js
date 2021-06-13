@@ -41,7 +41,9 @@ function main() {
       })
         .then((response) => response.json())
         .then(() => {
-          console.log("User name is updated.");
+          console.log(
+            `User name is updated. Icon type ${type}: ${icons[type]}`
+          );
         })
         .catch((err) => {
           console.error(err);
