@@ -23,22 +23,25 @@ async function main() {
 
     const response = await fetch(url);
     const value = await response.json();
-    const { icon: type } = value.current.weather[0];
+    const { icon: type } = value?.current?.weather[0];
 
-    // send request to twitter
-    const request = {
-      url: twitterUrl.replace(":name", encodeURI(icons[type])),
-      method: "POST",
-    };
+    if (type) {
+      // send request to twitter
+      const request = {
+        url: twitterUrl.replace(":name", encodeURI(icons[type])),
+        method: "POST",
+      };
 
-    const authHeader = Oauth1Helper.getAuthHeaderForRequest(request);
+      const authHeader = Oauth1Helper.getAuthHeaderForRequest(request);
 
-    await fetch(request.url, {
-      method: request.method,
-      headers: authHeader,
-    });
-
-    console.log(`User name is updated. Icon type ${type}: ${icons[type]}`);
+      await fetch(request.url, {
+        method: request.method,
+        headers: authHeader,
+      });
+      console.log(`User name is updated. Icon type ${type}: ${icons[type]}`);
+    } else {
+      console.log("User name not updated. 'type' is undefined", value);
+    }
   } catch (err) {
     throw new Error(err);
   }
