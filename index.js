@@ -23,7 +23,7 @@ async function main() {
 
     const response = await fetch(url);
     const value = await response.json();
-    const { icon: type } = value?.current?.weather[0];
+    const { icon: type } = value.current.weather[0];
 
     if (type) {
       // send request to twitter
